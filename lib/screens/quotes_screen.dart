@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quote_generator/models/quote.dart';
+import 'package:quote_generator/screens/author_screen.dart';
 import 'package:quote_generator/services/quoteApi.dart';
+import 'package:quote_generator/widgets/quote_widget.dart';
 
 class QuotesScreen extends StatefulWidget {
   @override
@@ -35,7 +37,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                       children: [
                         Text('random'),
                         SizedBox(width: 5.0),
-                        Icon(Icons.autorenew)
+                        Icon(Icons.autorenew),
                       ],
                     ),
                     onPressed: () {
@@ -60,54 +62,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                             'Error during quote fetching, try again later.');
                       }
 
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '"${snapshot.data.text}"',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 36,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 80,
-                          ),
-                          FlatButton(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 50.0),
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data.author,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Text(
-                                      snapshot.data.genre,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Spacer(),
-                                Icon(Icons.arrow_forward)
-                              ],
-                            ),
-                            onPressed: () => {},
-                          ),
-                        ],
-                      );
+                      return QuoteWidget(quote: snapshot.data);
                     },
                   ),
                 ),
